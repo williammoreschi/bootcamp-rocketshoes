@@ -12,9 +12,9 @@ export default class Home extends Component {
   async componentDidMount() {
     const response = await api.get('products');
 
-    const data = response.data.map(prodcut => ({
-      ...prodcut,
-      princeFormatted: formatPrice(prodcut.price),
+    const data = response.data.map(product => ({
+      ...product,
+      princeFormatted: formatPrice(product.price),
     }));
 
     this.setState({ prodcuts: data });
@@ -24,14 +24,14 @@ export default class Home extends Component {
     const { prodcuts } = this.state;
     return (
       <ProductList>
-        {prodcuts.map(prodcut => (
-          <li key={String(prodcut.id)}>
-            <img src={prodcut.image} alt={prodcut.title} />
-            <strong>{prodcut.title}</strong>
-            <span>{prodcut.princeFormatted}</span>
+        {prodcuts.map(product => (
+          <li key={String(product.id)}>
+            <img src={product.image} alt={product.title} />
+            <strong>{product.title}</strong>
+            <span>{product.princeFormatted}</span>
             <button type="button">
               <div>
-                <MdShoppingCart size={20} color="#Fff" /> {prodcut.id}
+                <MdShoppingCart size={20} color="#Fff" /> {product.id}
               </div>
               <span>ADICIONAR AO CARRINHO</span>
             </button>
