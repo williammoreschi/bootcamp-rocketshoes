@@ -6,7 +6,7 @@ import { ProductList } from './styles';
 
 export default class Home extends Component {
   state = {
-    prodcuts: [],
+    products: [],
   };
 
   async componentDidMount() {
@@ -17,14 +17,14 @@ export default class Home extends Component {
       princeFormatted: formatPrice(product.price),
     }));
 
-    this.setState({ prodcuts: data });
+    this.setState({ products: data });
   }
 
   render() {
-    const { prodcuts } = this.state;
+    const { products } = this.state;
     return (
       <ProductList>
-        {prodcuts.map(product => (
+        {products.map(product => (
           <li key={String(product.id)}>
             <img src={product.image} alt={product.title} />
             <strong>{product.title}</strong>
