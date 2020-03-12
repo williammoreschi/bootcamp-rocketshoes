@@ -1,94 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MdShoppingCart } from 'react-icons/md';
+import api from '../../services/api';
+import { formatPrice } from '../../util/format';
 import { ProductList } from './styles';
 
-export default function Home() {
-  return (
-    <ProductList>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-renew-run-feminino/50/HZM-2893-050/HZM-2893-050_zoom2.jpg?ts=1579889552&ims=326x"
-          alt="Produto"
-        />
-        <strong>Tênis Masculino com uma descrição gigante</strong>
-        <span>R$ 150,35</span>
-        <button type="button">
-          <div>
-            <MdShoppingCart size={20} color="#Fff" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-renew-run-feminino/50/HZM-2893-050/HZM-2893-050_zoom2.jpg?ts=1579889552&ims=326x"
-          alt="Produto"
-        />
-        <strong>Tênis Masculino</strong>
-        <span>R$ 150,35</span>
-        <button type="button">
-          <div>
-            <MdShoppingCart size={20} color="#Fff" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-renew-run-feminino/50/HZM-2893-050/HZM-2893-050_zoom2.jpg?ts=1579889552&ims=326x"
-          alt="Produto"
-        />
-        <strong>Tênis Masculino</strong>
-        <span>R$ 150,35</span>
-        <button type="button">
-          <div>
-            <MdShoppingCart size={20} color="#Fff" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-renew-run-feminino/50/HZM-2893-050/HZM-2893-050_zoom2.jpg?ts=1579889552&ims=326x"
-          alt="Produto"
-        />
-        <strong>Tênis Masculino</strong>
-        <span>R$ 150,35</span>
-        <button type="button">
-          <div>
-            <MdShoppingCart size={20} color="#Fff" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-renew-run-feminino/50/HZM-2893-050/HZM-2893-050_zoom2.jpg?ts=1579889552&ims=326x"
-          alt="Produto"
-        />
-        <strong>Tênis Masculino com uma descrição gigante</strong>
-        <span>R$ 150,35</span>
-        <button type="button">
-          <div>
-            <MdShoppingCart size={20} color="#Fff" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-renew-run-feminino/50/HZM-2893-050/HZM-2893-050_zoom2.jpg?ts=1579889552&ims=326x"
-          alt="Produto"
-        />
-        <strong>Tênis Masculino</strong>
-        <span>R$ 150,35</span>
-        <button type="button">
-          <div>
-            <MdShoppingCart size={20} color="#Fff" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-    </ProductList>
-  );
+export default class Home extends Component {
+  state = {
+    prodcuts: [],
+  };
+
+  async componentDidMount() {
+    const response = await api.get('products');
+
+    const data = response.data.map(prodcut => ({
+      ...prodcut,
+      princeFormatted: formatPrice(prodcut.price),
+    }));
+
+    this.setState({ prodcuts: data });
+  }
+
+  render() {
+    const { prodcuts } = this.state;
+    return (
+      <ProductList>
+        {prodcuts.map(prodcut => (
+          <li key={String(prodcut.id)}>
+            <img src={prodcut.image} alt={prodcut.title} />
+            <strong>{prodcut.title}</strong>
+            <span>{prodcut.princeFormatted}</span>
+            <button type="button">
+              <div>
+                <MdShoppingCart size={20} color="#Fff" /> {prodcut.id}
+              </div>
+              <span>ADICIONAR AO CARRINHO</span>
+            </button>
+          </li>
+        ))}
+      </ProductList>
+    );
+  }
 }
