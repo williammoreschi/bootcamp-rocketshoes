@@ -1,7 +1,15 @@
 import React from 'react';
-
-// import { Container } from './styles';
+import { BrowserRouter } from 'react-router-dom';
+import GlobalStyle from './styles/global';
+import Routes from './routes';
+import Header from './components/Header';
 
 export default function src() {
-  return <h1>Hello World</h1>;
+  return (
+    <BrowserRouter>
+      <GlobalStyle />
+      <Header />
+      <Routes />
+    </BrowserRouter>
+  );
 }
