@@ -1,6 +1,6 @@
 Dentro do módulo 7 foi mostrado o que é Redux e como usar ele com ReactJs.
 
-Durante as aulas estou desenvolvendo o Rocketshoes e que projeto de carrinho compras, a cada aulo e ensinado os conceitos da Arquitetura FLux.
+Durante as aulas estou desenvolvendo o Rocketshoes é um projeto de carrinho compras.
 
 A cada aula o carrinho vem ganhando novas funcionalidades, no momento em que eu escrevo esse texto o carrinho já está com funcionalidades bem legais;
 
